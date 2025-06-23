@@ -1,5 +1,6 @@
 from data import rutas, orders, vehicles
 from variable import System
+import modelo_de_lenguaje as ml
 
 def main():
     id_to_remove = [1, 2, 4, 5, 6, 7, 8, 9]
@@ -41,6 +42,15 @@ def main():
             print(f"Order {key.id} assigned to Vehicle {value.id}")
     else:
         print("solucion vacia")
+
+
+'''
+def main():
+    
+    vehicles_ = ml.obtain_vehicles()
+    
+    print("finalizado")    
+'''
 
 if __name__ == "__main__":
     main()

@@ -6,7 +6,6 @@ from variable import Rute,RuteNode,Vehicle,OrderVar
 rutas = [
     Rute(
         id=1,
-        ancho_m=2.55,
         altura_m=3.40,
         peso_m=15000,
         tipo_de_combustible=["diesel", "gasolina", "hidrogeno", "gas"],
@@ -19,7 +18,6 @@ rutas = [
     ),
     Rute(
         id=2,
-        ancho_m=2.45,
         altura_m=3.30,
         peso_m=10000,
         tipo_de_combustible=["diesel", "gasolina", "hidrogeno", "gas"],
@@ -32,7 +30,6 @@ rutas = [
     ),
     Rute(
         id=3,
-        ancho_m=2.70,
         altura_m=3.70,
         peso_m=30000,
         tipo_de_combustible=["diesel", "gasolina", "hidrogeno", "gas"],
@@ -45,7 +42,6 @@ rutas = [
     ),
     Rute(
         id=4,
-        ancho_m=2.50,
         altura_m=3.25,
         peso_m=8000,
         tipo_de_combustible=["diesel", "gasolina", "hidrogeno", "gas"],
@@ -58,7 +54,6 @@ rutas = [
     ),  
     Rute(
         id=5,
-        ancho_m=2.85,
         altura_m=4.00,
         peso_m=45000,
         tipo_de_combustible=["diesel", "gasolina", "hidrogeno", "gas"],
@@ -71,7 +66,6 @@ rutas = [
     ),
     Rute(
         id=6,
-        ancho_m=2.40,
         altura_m=3.20,
         peso_m=6000,
         tipo_de_combustible=["diesel", "gasolina", "hidrogeno", "gas"],
@@ -84,7 +78,6 @@ rutas = [
     ),
     Rute(
         id=7,
-        ancho_m=2.60,
         altura_m=3.60,
         peso_m=25000,
         tipo_de_combustible=["diesel", "gasolina", "hidrogeno", "gas"],
@@ -97,7 +90,6 @@ rutas = [
     ),
     Rute(
         id=8,
-        ancho_m=2.55,
         altura_m=3.45,
         peso_m=18000,
         tipo_de_combustible=["diesel", "gasolina", "hidrogeno", "gas"],
@@ -110,7 +102,6 @@ rutas = [
     ),
     Rute(
         id=9,
-        ancho_m=2.75,
         altura_m=3.90,
         peso_m=35000,
         tipo_de_combustible=["diesel", "gasolina", "hidrogeno", "gas"],
@@ -123,7 +114,6 @@ rutas = [
     ),
     Rute(
         id=10,
-        ancho_m=2.48,
         altura_m=3.35,
         peso_m=11000,
         tipo_de_combustible=["diesel", "gasolina", "hidrogeno", "gas"],
@@ -137,14 +127,14 @@ rutas = [
 ]
 
 vehicles = [
-    Vehicle(id=1, ancho=2.45, altura=3.30, capacidad=8000, tipo_de_combustible= ["diesel", "gasolina"]),   # Estrecho, estándar, baja
-    Vehicle(id=2, ancho=2.55, altura=3.60, capacidad=20000, tipo_de_combustible=["diesel", "gasolina"]),  # Estándar, alto, media
-    Vehicle(id=3, ancho=2.65, altura=4.00, capacidad=50000, tipo_de_combustible=["diesel", "gasolina"]), # Muy ancho, muy alto, muy alta
-    Vehicle(id=4, ancho=2.48, altura=3.40, capacidad=10000, tipo_de_combustible=["diesel", "gasolina"]), # Estrecho, estándar, baja
-    Vehicle(id=5, ancho=2.58, altura=3.70, capacidad=30000, tipo_de_combustible=["diesel", "gasolina"]), # Estándar, alto, alta
-    Vehicle(id=6, ancho=2.70, altura=3.25, capacidad=35000, tipo_de_combustible=["diesel", "gasolina"]), # Muy ancho, estándar, alta
-    Vehicle(id=7, ancho=2.52, altura=4.10, capacidad=55000, tipo_de_combustible=["diesel", "gasolina"]), # Estándar, muy alto, muy alta
-    Vehicle(id=8, ancho=2.62, altura=3.45, capacidad=18000, tipo_de_combustible=["diesel", "gasolina"])  # Muy ancho, estándar, media
+    Vehicle(id=1, altura=3.30, capacidad=8000, tipo_de_combustible= ["diesel", "gasolina"]),   # Estrecho, estándar, baja
+    Vehicle(id=2, altura=3.60, capacidad=20000, tipo_de_combustible=["diesel", "gasolina"]),  # Estándar, alto, media
+    Vehicle(id=3, altura=4.00, capacidad=50000, tipo_de_combustible=["diesel", "gasolina"]), # Muy ancho, muy alto, muy alta
+    Vehicle(id=4, altura=3.40, capacidad=10000, tipo_de_combustible=["diesel", "gasolina"]), # Estrecho, estándar, baja
+    Vehicle(id=5, altura=3.70, capacidad=30000, tipo_de_combustible=["diesel", "gasolina"]), # Estándar, alto, alta
+    Vehicle(id=6, altura=3.25, capacidad=35000, tipo_de_combustible=["diesel", "gasolina"]), # Muy ancho, estándar, alta
+    Vehicle(id=7, altura=4.10, capacidad=55000, tipo_de_combustible=["diesel", "gasolina"]), # Estándar, muy alto, muy alta
+    Vehicle(id=8, altura=3.45, capacidad=18000, tipo_de_combustible=["diesel", "gasolina"])  # Muy ancho, estándar, media
 ]
 
 rangos_cantidad = {
