@@ -6,7 +6,7 @@ import fitz
 import re
 import json
 from variable import Vehicle
-from py_code_to_string import vehicle_class
+from py_code_to_string import vehicle_class, tipos_de_combustible
 
 load_dotenv()
 
@@ -128,6 +128,7 @@ def obtain_vehicles():
         #generar promt para generar vehiculos
         prompt = generate_prompt_with_context_vehicle_g(user_input, documents, use_web)
         prompt = prompt + f"Genera {user_input[0]} vehiculos en json siguiendo la estructura de la clase: {vehicle_class}"
+        prompt = prompt + f"En los tipos de combustible usa estos {tipos_de_combustible}"
 
         response = chat.send_message(prompt)
         vehicles_json = obtain_json_str(response.text)

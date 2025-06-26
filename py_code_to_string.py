@@ -11,3 +11,12 @@ vehicle_class = '''
 vehicle_order = '''
 Generame
 '''
+
+tipos_de_combustible = '''
+    tipos_de_combustible = {
+        "gasolina",
+        "diesel",
+        "hidrogeno",
+        "gas"
+    }
+'''

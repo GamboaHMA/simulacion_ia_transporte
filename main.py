@@ -1,7 +1,7 @@
-from data import rutas, orders, vehicles
+from data import rutas, orders, vehicles, new_vehicles, new_orders
 from variable import System
 import modelo_de_lenguaje as ml
-
+'''
 def main():
     id_to_remove = [1, 2, 4, 5, 6, 7, 8, 9]
     count = 0
@@ -42,15 +42,27 @@ def main():
             print(f"Order {key.id} assigned to Vehicle {value.id}")
     else:
         print("solucion vacia")
-
-
 '''
+
 def main():
     
-    vehicles_ = ml.obtain_vehicles()
-    
+    #vehiculos_ = ml.obtain_vehicles()
+    #system = System(rutes=rutas, orders=orders, vehicles=vehiculos_)
+    system = System(rutes=rutas, orders=new_orders, vehicles=new_vehicles)
+    for order in system.orders:
+        print(order)
+    initial_solution = system.initial_solution()
+    if initial_solution:
+        for key, value in initial_solution.items():
+            print(f"Order {key.id} assigned to Vehicle {value.id}")
+        vehicles = set()
+        for vehicle in initial_solution.values():
+            vehicles.add(vehicle.id)
+        print(f"Cantidad de vehiculos usados: {len(vehicles)}")
+        print(f"cantidad de back dados: {system.num_of_back}")
+    else: print("solucion vacia")
+
     print("finalizado")    
-'''
 
 if __name__ == "__main__":
     main()

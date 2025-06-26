@@ -72,7 +72,7 @@ class Vehicle():
 		self.distancia_restante = self.distancia_max
 
 	def disponible(self, order: OrderVar) -> bool:  #por ahora chequea los horarios asignados del vehiculo en busca de tiempo libre, con la restriccion del tiempo limite del pedido
-		if 2*order.rute_node.distance > self.distancia_max:
+		if 2*order.rute_node.distance > self.distancia_restante:
 			return False
 		else:
 			return True
@@ -87,6 +87,10 @@ class Vehicle():
 		self.distancia_restante += 2*order.rute_node.distance
 
 
+class Register():
+	def __init__(self, cant_vehiculos, ):
+		self.cant_vehiculos = cant_vehiculos
+		self.cant_ordenes
 
 # sistema que llevara el control de los dominios de las variables, y el que asignara vehiculos a pedidos
 class System():
@@ -95,8 +99,12 @@ class System():
 		self.rutes:list[Rute] = rutes
 		self.orders: list[OrderVar] = orders
 		self.rutes_domain: dict[Rute, list[Vehicle]] = { rute:[] for rute in self.rutes }
+		self.orders_domain: dict[OrderVar, list[Vehicle]] = { order:[] for order in self.orders }
+
+		self.num_of_back = 0
 
 		self.ass_rutes_domain()
+		self.ass_orders_domain()
 
 
 	def __str__(self):
@@ -122,12 +130,24 @@ class System():
 		for rute in self.rutes:
 			for vehicle in self.vehicles:
 			
-				if ( vehicle.altura < rute.altura_m and vehicle.capacidad < rute.peso_m and all(tipo_de_combustible in rute.tipo_de_combustible for tipo_de_combustible in vehicle.tipo_de_combustible) ):
+				if ( vehicle.altura <= rute.altura_m and vehicle.capacidad <= rute.peso_m and all(tipo_de_combustible in rute.tipo_de_combustible for tipo_de_combustible in vehicle.tipo_de_combustible) ):
 					self.rutes_domain[rute].append(vehicle)
 				
+	def ass_orders_domain(self):
+		for order in self.orders:
+			rute_id = order.rute_node.rute_id
+			rute_: Rute = None
+			for rute in self.rutes:
+				if rute_id == rute.id:
+					rute_ = rute
+					break
+			for vehicle in self.rutes_domain[rute_]:
+				if vehicle.capacidad >= order.cant:
+					self.orders_domain[order].append(vehicle)
 
 	def initial_solution(self):
 		self.orders = self.ordered_orders_t(self.orders.copy())
+		self.num_of_back = 0
 		return self.backtrack(dict())
 
 #	ordenando pedidos de menor a mayor, segun la cantidad de vehiculos que pueden tomar dicho pedido
@@ -138,7 +158,7 @@ class System():
 			for vehicle in self.vehicles:
 				if order.vehicle_ok(vehicle) and vehicle.disponible(order):
 					vehicles_to_order_dict[order] += 1
-		return orders
+		return sorted(orders, key=lambda v: vehicles_to_order_dict[v], reverse=False)
 	
 #	ordenando teniendo en cuenta la distancia restante por recorrer o cantidad de viajes restantes
 #	de mayor a menor, ya que elegimos primero los vehiculos que tienen mas viajes disponibles [una opcion seria para optimizar la explotacion del vehiculo, ordenarlo a la inversa]
@@ -151,7 +171,7 @@ class System():
 				break
 		result = [vehicle for vehicle in self.rutes_domain[rute_] if var.vehicle_ok(vehicle)]
 
-		result = sorted(result, key=lambda v: v.distancia_restante, reverse=True)
+		result = sorted(result, key=lambda v: v.distancia_restante, reverse=False)
 		
 		return result
 
@@ -165,7 +185,7 @@ class System():
 				break
 		result = [vehicle for vehicle in self.rutes_domain[rute_] if var.vehicle_ok(vehicle)]
 
-		result = sorted(result, key=lambda v: v.distancia_max, reverse=True)
+		result = sorted(result, key=lambda v: v.distancia_max, reverse=False)
 		
 		return result
 
@@ -184,7 +204,7 @@ class System():
 			for order in self.orders:
 				if order.vehicle_ok(vehicle) and vehicle.disponible(order):
 					orders_to_vehicle_dict[vehicle] += 1
-		result = sorted(result, key=lambda v: orders_to_vehicle_dict[v], reverse=True)
+		result = sorted(result, key=lambda v: orders_to_vehicle_dict[v], reverse=False) #
 		
 
 		return result
@@ -200,7 +220,10 @@ class System():
 			return assignment
 		var:OrderVar = self.unasigned_var(assignment)
 		print(f"{var}")
-		for vehicle in self.ordered_domain_values_dom_a_satisfacer(var, assignment):
+		domain_values = self.ordered_domain_values_dist_max(var, assignment)
+		for vehicle in domain_values:
+			if(domain_values[0] != vehicle):
+				self.num_of_back += 1
 			print(f"{vehicle}")
 			if vehicle.disponible(var):
 				vehicle.assign_order(var)
@@ -211,6 +234,7 @@ class System():
 				if result is not None:
 					return result
 				else:
+					self.num_of_back += 1
 					vehicle.reset_order(var)
 					print(f"{vehicle} resetear orden {var}")
 					assignment.pop(var, None)
