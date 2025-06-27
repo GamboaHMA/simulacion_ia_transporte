@@ -9,17 +9,23 @@ from variable import Vehicle, System, OrderVar, Rute, RuteNode
 from py_code_to_string import vehicle_class, tipos_de_combustible
 from data import rutas, new_orders 
 
+def estimar_costo_vehiculo(vehicle:Vehicle) -> float:
+    k1 = 50000 # constante para escala
+    precio_por_tonelada = k1/vehicle.altura
+    costo_total = precio_por_tonelada * vehicle.capacidad
+    return costo_total
+
 capacidad_rangos = {
     "liviano": "5000-13000",
     "medio": "14000-22000",
     "semipesado": "23000-31000",
-    "pesado": "32000-40000",
+    "pesado": "32000-42000",
 }
 
 altura_rangos = {
-    "pequeno": "3.25-3.55",
-    "estandar": "3.55-3.80",
-    "grande": "3.80-4.00"
+    "pequeno": "2.90-3.30",
+    "estandar": "3.30-3.70",
+    "grande": "3.70-4.00"
 }
 
 load_dotenv()
@@ -149,7 +155,8 @@ def obtain_vehicles(cant:int=None):
         #generar promt para generar vehiculos
         prompt = generate_prompt_with_context_vehicle_g(documents, use_web)
         prompt = prompt + f"Genera {cant} vehiculos en json siguiendo la estructura de la clase: {vehicle_class}. "
-        prompt = prompt + f"En los tipos de combustible usa estos {tipos_de_combustible}"
+        prompt = prompt + f"En los tipos de combustible usa estos {tipos_de_combustible} "
+        prompt = prompt + f"y que respete los rangos de {capacidad_rangos} y {altura_rangos}"
 
         response = chat.send_message(prompt)
         vehicles_json = obtain_json_str(response.text)

@@ -18,7 +18,7 @@ class OrderVar():
 		self.t_lim: float = t_lim
 	
 	def __str__(self) -> str:
-		return f"Order ID: {self.id}, RuteNode: {self.rute_node}, Cantidad: {self.cant}, TiempoLimite: {self.t_lim}"
+		return f"Order ID: {self.id}, RuteNode: {self.rute_node}, Cantidad: {self.cant}"
 
 	def __repr__(self) -> str:
 		return f"Order: {self.id} Cant: {self.cant} Time: {self.t_lim}"
@@ -42,7 +42,7 @@ class Rute():
 		self.rute_nodes.append(rute_node)
 	
 	def __str__(self) -> str:
-		return f"Rute ID: {self.id}, Altura: {self.altura_m}, PesoMaximo: {self.peso_m}, \n TiposDeComb: {self.tipo_de_combustible}, TipoDeZona: {self.tipo_de_zona}, Nodos: {[str(rute_node) for rute_node in self.rute_nodes]} \n"	
+		return f"Rute ID: {self.id}, Altura: {self.altura_m}, PesoMaximo: {self.peso_m}, \n , Nodos: {[str(rute_node) for rute_node in self.rute_nodes]} \n"	
 
 	def __repr__(self) -> str:
 		return f"Rute: {self.id}"
