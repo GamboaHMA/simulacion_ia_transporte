@@ -46,9 +46,12 @@ def main():
 
 def main():
     
-    #vehiculos_ = ml.obtain_vehicles()
-    #system = System(rutes=rutas, orders=orders, vehicles=vehiculos_)
-    system = System(rutes=rutas, orders=new_orders, vehicles=new_vehicles)
+    #vehiculos_ = ml.obtain_vehicles(20)
+    vehiculos = ml.obtain_vehicles_grad()
+    for vehiculo in vehiculos:
+        vehiculo.reset_dist_max()
+    system = System(rutes=rutas, orders=new_orders, vehicles=vehiculos)
+    #system = System(rutes=rutas, orders=new_orders, vehicles=new_vehicles)
     for order in system.orders:
         print(order)
     initial_solution = system.initial_solution()

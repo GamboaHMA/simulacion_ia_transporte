@@ -20,3 +20,11 @@ tipos_de_combustible = '''
         "gas"
     }
 '''
+rango_capacidad = '''
+rangos = {
+    "liviano": "5000-13000",
+    "medio": "14000-22000",
+    "semipesado": "23000-31000",
+    "pesado": "32000-40000",
+}
+'''

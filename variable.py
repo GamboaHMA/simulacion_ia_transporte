@@ -219,15 +219,15 @@ class System():
 		if len(assignment) == len(self.orders):
 			return assignment
 		var:OrderVar = self.unasigned_var(assignment)
-		print(f"{var}")
-		domain_values = self.ordered_domain_values_dist_max(var, assignment)
+		#print(f"{var}")
+		domain_values = self.ordered_domain_values_dom_a_satisfacer(var, assignment)
 		for vehicle in domain_values:
 			if(domain_values[0] != vehicle):
 				self.num_of_back += 1
-			print(f"{vehicle}")
+			#print(f"{vehicle}")
 			if vehicle.disponible(var):
 				vehicle.assign_order(var)
-				print(f"vehiculo {vehicle} disponible, dist_restante: {vehicle.distancia_max}")
+				#print(f"vehiculo {vehicle} disponible, dist_restante: {vehicle.distancia_max}")
 				assignment[var] = vehicle
 				result = self.backtrack(assignment)
 				
@@ -236,8 +236,8 @@ class System():
 				else:
 					self.num_of_back += 1
 					vehicle.reset_order(var)
-					print(f"{vehicle} resetear orden {var}")
+					#print(f"{vehicle} resetear orden {var}")
 					assignment.pop(var, None)
 		return None
 
-
+	

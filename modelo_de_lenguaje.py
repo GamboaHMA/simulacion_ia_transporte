@@ -5,8 +5,22 @@ from pathlib import Path
 import fitz
 import re
 import json
-from variable import Vehicle
+from variable import Vehicle, System, OrderVar, Rute, RuteNode
 from py_code_to_string import vehicle_class, tipos_de_combustible
+from data import rutas, new_orders 
+
+capacidad_rangos = {
+    "liviano": "5000-13000",
+    "medio": "14000-22000",
+    "semipesado": "23000-31000",
+    "pesado": "32000-40000",
+}
+
+altura_rangos = {
+    "pequeno": "3.25-3.55",
+    "estandar": "3.55-3.80",
+    "grande": "3.80-4.00"
+}
 
 load_dotenv()
 
@@ -44,7 +58,7 @@ def load_documents(directory="pdf_documents"):
         print(f"⚠️ Error al cargar documentos: {str(e)}")
     return documents
 
-def generate_prompt_with_context_vehicle_g(user_input, documents, use_web=False):
+def generate_prompt_with_context_vehicle_g(documents, use_web=False):
     """Genera un prompt contextualizado con documentos locales y opción de web"""
     context = ""
     
@@ -91,7 +105,7 @@ def chat_with_gemini():
         
         try:
             # Generar prompt contextualizado
-            prompt = generate_prompt_with_context_vehicle_g(user_input, documents, use_web)
+            prompt = generate_prompt_with_context_vehicle_g(documents, use_web)
             prompt += vehicle_class
             
             # Enviar al modelo
@@ -115,19 +129,26 @@ def obtain_json_str(string:str):
     result = result.replace("```", '').replace('\n', '').replace('json', '')
     return result
 
-def obtain_vehicles():
+def obtain_vehicles(cant:int=None):
     vehicles = []
     documents = load_documents()
     chat = model.start_chat(history=[])
 
-    user_input = input("especificaciones de vehiculos ")
-    user_input = user_input.split()
+    if cant==None:
+        while(True):
+            user_input = input("introduzca la cantidad de vehiculos: ")
+            try:
+                cant = int(user_input)
+                break
+            except:
+                print("numero invalido")
+
     use_web = False
 
     try:
         #generar promt para generar vehiculos
-        prompt = generate_prompt_with_context_vehicle_g(user_input, documents, use_web)
-        prompt = prompt + f"Genera {user_input[0]} vehiculos en json siguiendo la estructura de la clase: {vehicle_class}"
+        prompt = generate_prompt_with_context_vehicle_g(documents, use_web)
+        prompt = prompt + f"Genera {cant} vehiculos en json siguiendo la estructura de la clase: {vehicle_class}. "
         prompt = prompt + f"En los tipos de combustible usa estos {tipos_de_combustible}"
 
         response = chat.send_message(prompt)
@@ -148,3 +169,75 @@ def obtain_vehicles():
         print(f" Error: {str(e)}")
     
     return vehicles
+
+def obtain_vehicles_grad():
+    initial_cant = 0
+    cant = initial_cant
+    documents = load_documents()
+    chat = model.start_chat(history=[])
+
+    use_web = False
+
+    previous_json = ""
+    context_feedback = ""
+
+    vehicles = []
+    vehicles_id = []
+
+    while(True):
+        cant += 10
+        if cant >= 100:
+            return None
+
+        prompt_base = generate_prompt_with_context_vehicle_g(documents, use_web)
+        prompt_base += f"Genera {cant} vehiculos en json siguiendo la estructura de la clase: {vehicle_class}. "
+        prompt_base += f"En los tipos de combustible usa estos {tipos_de_combustible}"
+        prompt_base += f"y que respete los rangos de {capacidad_rangos} y {altura_rangos}"
+
+        prompt = prompt_base
+        if previous_json:
+            prompt += f"Estos fueron los vehiculos generados anteriormente {previous_json}"
+        if context_feedback:
+            prompt += f"Sin embargo no fueron suficientes ya que: {context_feedback}"
+
+        try:
+            response = chat.send_message(prompt)
+            vehicles_json = obtain_json_str(response.text)
+            previous_json = vehicles_json
+            print(vehicles_json)
+            if vehicles_json:
+                vehicles_data = json.loads(vehicles_json)
+                for vehicle_data in vehicles_data:
+                    if vehicle_data["id"] not in vehicles_id:
+                        vehicle = Vehicle(
+                            id=vehicle_data["id"],
+                            altura=vehicle_data["altura"],
+                            capacidad=vehicle_data["capacidad"],
+                            tipo_de_combustible=vehicle_data["tipo_de_combustible"]
+                        )
+                        vehicles_id.append(vehicle.id)
+                        vehicles.append(vehicle)
+        except Exception as e:
+            print(f" Error: {str(e)}")
+        
+        system = System(rutes=rutas, orders=new_orders, vehicles=vehicles)
+
+        empty_domains = []
+        context_feedback = "Hacen falta algunos vehiculos que satisfagan restricciones como: \n"
+        for order, order_domain in system.orders_domain.items():
+            if len(order_domain) == 0:
+                ruta = None
+                for ruta_ in rutas:
+                    if order.rute_node.rute_id == ruta_.id:
+                        ruta = ruta_
+                        break
+                context_feedback += f"Capacidad mayor o igual a: {order.cant} Capacidad menor o igual a {ruta.peso_m} Altura menor o igual a {ruta.altura_m}\n"
+                empty_domains.append(order_domain)
+        if len(empty_domains) != 0:
+            continue
+        initial_solution = system.initial_solution()
+        if initial_solution:
+            return vehicles
+        else:
+            print("empty solution")
+        
