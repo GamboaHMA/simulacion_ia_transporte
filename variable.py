@@ -1,5 +1,7 @@
 #variable pedido, a cada variable se le asignara un camion designado a hacer la entrega, el camion debe cumplir requisitos
 		
+from typing import Any
+
 class RuteNode():
 	def __init__(self, node_id: int, rute_id: int, distance: float):
 		self.node_id: int = node_id
@@ -240,4 +242,4 @@ class System():
 					assignment.pop(var, None)
 		return None
 
-	
+ 
