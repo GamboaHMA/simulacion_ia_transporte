@@ -2,6 +2,7 @@ from data import rutas, vehicles, new_vehicles, new_orders, vehicles_json
 from variable import System, Vehicle
 import json
 import modelo_de_lenguaje as ml
+from metaheuristic import MetaheuristicAgent
 '''
 def main():
     id_to_remove = [1, 2, 4, 5, 6, 7, 8, 9]
@@ -63,6 +64,10 @@ def main():
     for vehiculo in vehiculos:
         print(vehiculo)
     system = System(rutes=rutas, orders=new_orders, vehicles=vehiculos)
+    mh = MetaheuristicAgent(1)
+
+    probando = mh.initial_solution(system=system)
+
     initial_solution = system.initial_solution()
     if initial_solution:
         for key, value in initial_solution.items():
