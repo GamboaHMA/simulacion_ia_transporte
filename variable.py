@@ -13,11 +13,14 @@ class RuteNode():
 
 
 class OrderVar():
-	def __init__(self, id: int, rute_node:RuteNode, cant: float, t_lim: float):
+	def __init__(self, id: int, rute_node:RuteNode, cant: float, tipo_combustible:str, t_lim: float):
 		self.id: int = id
 		self.rute_node: RuteNode = rute_node
 		self.cant: float = cant
+		self.tipo_combustible:str = tipo_combustible
 		self.t_lim: float = t_lim
+
+		self.compl_dom:dict[Vehicle, list[str]] = { }
 	
 	def __str__(self) -> str:
 		return f"Order ID: {self.id}, RuteNode: {self.rute_node}, Cantidad: {self.cant}"
@@ -26,7 +29,25 @@ class OrderVar():
 		return f"Order: {self.id} Cant: {self.cant} Time: {self.t_lim}"
 	
 	def vehicle_ok(self, vehicle: "Vehicle"):
-		return True if self.cant <= vehicle.capacidad else False 
+		result = True
+		if self.cant > vehicle.capacidad:
+			if vehicle in  self.compl_dom:
+				arg = f"la capacidad que ocupa la orden supera la capacidad de {vehicle.capacidad} del vehiculo"
+				if arg not in self.compl_dom:
+					self.compl_dom[vehicle].append(arg)
+			else:
+				self.compl_dom[vehicle] = [f"la capacidad que ocupa la orden supera la capacidad de {vehicle.capacidad} del vehiculo \n"]
+			result = False
+		if self.tipo_combustible not in vehicle.tipo_de_combustible:
+			if vehicle in self.compl_dom:
+				arg = f"el vehiculo no admite a {self.tipo_combustible} como tipo de combustible"
+				if arg not in self.compl_dom[vehicle]:
+					self.compl_dom[vehicle].append(arg) 
+			else:
+				self.compl_dom[vehicle] = [f"el vehiculo no admite a {self.tipo_combustible} como tipo de combustible"]
+			result = False
+
+		return result 
 
 
 #una ruta contiene varios puntos de posibles pedidos que se generaran, cada punto contiene la distancia, y cada ruta tiene especificaciones
@@ -102,6 +123,7 @@ class System():
 		self.orders: list[OrderVar] = orders
 		self.rutes_domain: dict[Rute, list[Vehicle]] = { rute:[] for rute in self.rutes }
 		self.orders_domain: dict[OrderVar, list[Vehicle]] = { order:[] for order in self.orders }
+		self.rutes_compl_domain: dict[Rute, list[Vehicle]] = { rute:[] for rute in self.rutes }
 
 		self.num_of_back = 0
 
@@ -132,9 +154,21 @@ class System():
 		for rute in self.rutes:
 			for vehicle in self.vehicles:
 			
-				if ( vehicle.altura <= rute.altura_m and vehicle.capacidad <= rute.peso_m and all(tipo_de_combustible in rute.tipo_de_combustible for tipo_de_combustible in vehicle.tipo_de_combustible) ):
-					self.rutes_domain[rute].append(vehicle)
+				#if ( vehicle.altura <= rute.altura_m and vehicle.capacidad <= rute.peso_m and all(tipo_de_combustible in rute.tipo_de_combustible for tipo_de_combustible in vehicle.tipo_de_combustible) ):
+				#	self.rutes_domain[rute].append(vehicle)
 				
+				if not (vehicle.altura <= rute.altura_m):
+					self.rutes_compl_domain[vehicle] = f"el vehiculo {vehicle.id} con altura de {vehicle.altura} supera a altura de la ruta {rute.id}."
+				elif not (vehicle.capacidad <= rute.peso_m):
+					self.rutes_compl_domain[vehicle] = f"el vehiculo {vehicle.id} con capacidad de {vehicle.capacidad} sobrepasa el establecido {rute.peso_m}" 
+				elif not all(tipo_de_combustible in rute.tipo_de_combustible for tipo_de_combustible in vehicle.tipo_de_combustible):
+					comb_no_admitidos = ""
+					for tipo_combustible in vehicle.tipo_de_combustible:
+						if tipo_combustible not in rute.tipo_de_combustible:
+							comb_no_admitidos += f"{tipo_combustible} "
+					self.rutes_compl_domain[vehicle] = f"el vehiculo con combustibles incluidos {comb_no_admitidos} no estan admitidos en la ruta {rute.id}"
+				else:
+					self.rutes_domain[rute].append(vehicle)
 	def ass_orders_domain(self):
 		for order in self.orders:
 			rute_id = order.rute_node.rute_id

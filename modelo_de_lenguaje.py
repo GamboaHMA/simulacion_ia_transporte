@@ -247,4 +247,4 @@ def obtain_vehicles_grad():
             return vehicles
         else:
             print("empty solution")
-        
+

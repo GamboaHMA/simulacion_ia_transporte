@@ -1,4 +1,4 @@
-from data import rutas, orders, vehicles, new_vehicles, new_orders, vehicles_json
+from data import rutas, vehicles, new_vehicles, new_orders, vehicles_json
 from variable import System, Vehicle
 import json
 import modelo_de_lenguaje as ml

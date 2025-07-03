@@ -157,28 +157,28 @@ def get_cantidad_aleatoria(rute_node:RuteNode):
     return rangos_validos[cant_r_index]
 
 
-orders = [
-    OrderVar(id=1, rute_node=rutas[0].rute_nodes[1], cant=get_cantidad_aleatoria(rutas[0].rute_nodes[1]), t_lim=random.randint(5, 24)),
-    OrderVar(id=2, rute_node=rutas[1].rute_nodes[0], cant=get_cantidad_aleatoria(rutas[1].rute_nodes[0]), t_lim=random.randint(5, 24)),
-    OrderVar(id=3, rute_node=rutas[2].rute_nodes[2], cant=get_cantidad_aleatoria(rutas[2].rute_nodes[2]), t_lim=random.randint(5, 24)),
-    OrderVar(id=4, rute_node=rutas[3].rute_nodes[1], cant=get_cantidad_aleatoria(rutas[3].rute_nodes[1]), t_lim=random.randint(5, 24)),
-    OrderVar(id=5, rute_node=rutas[4].rute_nodes[0], cant=get_cantidad_aleatoria(rutas[4].rute_nodes[0]), t_lim=random.randint(5, 24)),
-    OrderVar(id=6, rute_node=rutas[5].rute_nodes[2], cant=get_cantidad_aleatoria(rutas[5].rute_nodes[2]), t_lim=random.randint(5, 24)),
-    OrderVar(id=7, rute_node=rutas[6].rute_nodes[1], cant=get_cantidad_aleatoria(rutas[6].rute_nodes[1]), t_lim=random.randint(5, 24)),
-    OrderVar(id=8, rute_node=rutas[7].rute_nodes[0], cant=get_cantidad_aleatoria(rutas[7].rute_nodes[0]), t_lim=random.randint(5, 24)),
-    OrderVar(id=9, rute_node=rutas[8].rute_nodes[2], cant=get_cantidad_aleatoria(rutas[8].rute_nodes[2]), t_lim=random.randint(5, 24)),
-    OrderVar(id=10, rute_node=rutas[9].rute_nodes[1], cant=get_cantidad_aleatoria(rutas[9].rute_nodes[1]), t_lim=random.randint(5, 24)),
-    OrderVar(id=11, rute_node=rutas[0].rute_nodes[0], cant=get_cantidad_aleatoria(rutas[0].rute_nodes[0]), t_lim=random.randint(5, 24)),
-    OrderVar(id=12, rute_node=rutas[1].rute_nodes[2], cant=get_cantidad_aleatoria(rutas[1].rute_nodes[2]), t_lim=random.randint(5, 24)),
-    OrderVar(id=13, rute_node=rutas[2].rute_nodes[1], cant=get_cantidad_aleatoria(rutas[2].rute_nodes[1]), t_lim=random.randint(5, 24)),
-    OrderVar(id=14, rute_node=rutas[3].rute_nodes[0], cant=get_cantidad_aleatoria(rutas[3].rute_nodes[0]), t_lim=random.randint(5, 24)),
-    OrderVar(id=15, rute_node=rutas[4].rute_nodes[2], cant=get_cantidad_aleatoria(rutas[4].rute_nodes[2]), t_lim=random.randint(5, 24)),
-    OrderVar(id=16, rute_node=rutas[5].rute_nodes[1], cant=get_cantidad_aleatoria(rutas[5].rute_nodes[1]), t_lim=random.randint(5, 24)),
-    OrderVar(id=17, rute_node=rutas[6].rute_nodes[0], cant=get_cantidad_aleatoria(rutas[6].rute_nodes[0]), t_lim=random.randint(5, 24)),
-    OrderVar(id=18, rute_node=rutas[7].rute_nodes[2], cant=get_cantidad_aleatoria(rutas[7].rute_nodes[2]), t_lim=random.randint(5, 24)),
-    OrderVar(id=19, rute_node=rutas[8].rute_nodes[1], cant=get_cantidad_aleatoria(rutas[8].rute_nodes[1]), t_lim=random.randint(5, 24)),
-    OrderVar(id=20, rute_node=rutas[9].rute_nodes[0], cant=get_cantidad_aleatoria(rutas[9].rute_nodes[0]), t_lim=random.randint(5, 24))
-]
+#orders = [
+#    OrderVar(id=1, rute_node=rutas[0].rute_nodes[1], cant=get_cantidad_aleatoria(rutas[0].rute_nodes[1]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=2, rute_node=rutas[1].rute_nodes[0], cant=get_cantidad_aleatoria(rutas[1].rute_nodes[0]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=3, rute_node=rutas[2].rute_nodes[2], cant=get_cantidad_aleatoria(rutas[2].rute_nodes[2]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=4, rute_node=rutas[3].rute_nodes[1], cant=get_cantidad_aleatoria(rutas[3].rute_nodes[1]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=5, rute_node=rutas[4].rute_nodes[0], cant=get_cantidad_aleatoria(rutas[4].rute_nodes[0]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=6, rute_node=rutas[5].rute_nodes[2], cant=get_cantidad_aleatoria(rutas[5].rute_nodes[2]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=7, rute_node=rutas[6].rute_nodes[1], cant=get_cantidad_aleatoria(rutas[6].rute_nodes[1]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=8, rute_node=rutas[7].rute_nodes[0], cant=get_cantidad_aleatoria(rutas[7].rute_nodes[0]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=9, rute_node=rutas[8].rute_nodes[2], cant=get_cantidad_aleatoria(rutas[8].rute_nodes[2]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=10, rute_node=rutas[9].rute_nodes[1], cant=get_cantidad_aleatoria(rutas[9].rute_nodes[1]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=11, rute_node=rutas[0].rute_nodes[0], cant=get_cantidad_aleatoria(rutas[0].rute_nodes[0]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=12, rute_node=rutas[1].rute_nodes[2], cant=get_cantidad_aleatoria(rutas[1].rute_nodes[2]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=13, rute_node=rutas[2].rute_nodes[1], cant=get_cantidad_aleatoria(rutas[2].rute_nodes[1]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=14, rute_node=rutas[3].rute_nodes[0], cant=get_cantidad_aleatoria(rutas[3].rute_nodes[0]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=15, rute_node=rutas[4].rute_nodes[2], cant=get_cantidad_aleatoria(rutas[4].rute_nodes[2]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=16, rute_node=rutas[5].rute_nodes[1], cant=get_cantidad_aleatoria(rutas[5].rute_nodes[1]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=17, rute_node=rutas[6].rute_nodes[0], cant=get_cantidad_aleatoria(rutas[6].rute_nodes[0]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=18, rute_node=rutas[7].rute_nodes[2], cant=get_cantidad_aleatoria(rutas[7].rute_nodes[2]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=19, rute_node=rutas[8].rute_nodes[1], cant=get_cantidad_aleatoria(rutas[8].rute_nodes[1]), t_lim=random.randint(5, 24)),
+#    OrderVar(id=20, rute_node=rutas[9].rute_nodes[0], cant=get_cantidad_aleatoria(rutas[9].rute_nodes[0]), t_lim=random.randint(5, 24))
+#]
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # Para experimentar
@@ -219,24 +219,24 @@ Order ID: 19, RuteNode: Node ID: 903, Rute ID: 9, Distance: 75, Cantidad: 20000,
 Order ID: 20, RuteNode: Node ID: 1002, Rute ID: 10, Distance: 80, Cantidad: 9000, TiempoLimite: 16'''
 
 new_orders = [
-    OrderVar(id=1, rute_node=rutas[0].rute_nodes[1], cant=6000, t_lim=random.randint(5, 24)),
-    OrderVar(id=2, rute_node=rutas[1].rute_nodes[0], cant=10000, t_lim=random.randint(5, 24)),
-    OrderVar(id=3, rute_node=rutas[2].rute_nodes[2], cant=5000, t_lim=random.randint(5, 24)),
-    OrderVar(id=4, rute_node=rutas[3].rute_nodes[1], cant=7000, t_lim=random.randint(5, 24)),
-    OrderVar(id=5, rute_node=rutas[4].rute_nodes[0], cant=38000, t_lim=random.randint(5, 24)),
-    OrderVar(id=6, rute_node=rutas[5].rute_nodes[2], cant=6000, t_lim=random.randint(5, 24)),
-    OrderVar(id=7, rute_node=rutas[6].rute_nodes[1], cant=11000, t_lim=random.randint(5, 24)),
-    OrderVar(id=8, rute_node=rutas[7].rute_nodes[0], cant=15000, t_lim=random.randint(5, 24)),
-    OrderVar(id=9, rute_node=rutas[8].rute_nodes[2], cant=25000, t_lim=random.randint(5, 24)),
-    OrderVar(id=10, rute_node=rutas[9].rute_nodes[1], cant=9000, t_lim=random.randint(5, 24)),
-    OrderVar(id=11, rute_node=rutas[0].rute_nodes[0], cant=10000, t_lim=random.randint(5, 24)),
-    OrderVar(id=12, rute_node=rutas[1].rute_nodes[2], cant=9000, t_lim=random.randint(5, 24)),
-    OrderVar(id=13, rute_node=rutas[2].rute_nodes[1], cant=21000, t_lim=random.randint(5, 24)),
-    OrderVar(id=14, rute_node=rutas[3].rute_nodes[0], cant=6000, t_lim=random.randint(5, 24)),
-    OrderVar(id=15, rute_node=rutas[4].rute_nodes[2], cant=24000, t_lim=random.randint(5, 24)),
-    OrderVar(id=16, rute_node=rutas[5].rute_nodes[1], cant=5000, t_lim=random.randint(5, 24)),
-    OrderVar(id=17, rute_node=rutas[6].rute_nodes[0], cant=20000, t_lim=random.randint(5, 24)),
-    OrderVar(id=18, rute_node=rutas[7].rute_nodes[2], cant=11000, t_lim=random.randint(5, 24)),
-    OrderVar(id=19, rute_node=rutas[8].rute_nodes[1], cant=20000, t_lim=random.randint(5, 24)),
-    OrderVar(id=20, rute_node=rutas[9].rute_nodes[0], cant=9000, t_lim=random.randint(5, 24))
+    OrderVar(id=1, rute_node=rutas[0].rute_nodes[1], cant=6000, tipo_combustible="gasolina", t_lim=random.randint(5, 24)),
+    OrderVar(id=2, rute_node=rutas[1].rute_nodes[0], cant=10000, tipo_combustible="diesel", t_lim=random.randint(5, 24)),
+    OrderVar(id=3, rute_node=rutas[2].rute_nodes[2], cant=5000, tipo_combustible="hidrogeno", t_lim=random.randint(5, 24)),
+    OrderVar(id=4, rute_node=rutas[3].rute_nodes[1], cant=7000, tipo_combustible="diesel", t_lim=random.randint(5, 24)),
+    OrderVar(id=5, rute_node=rutas[4].rute_nodes[0], cant=38000, tipo_combustible="hidrogeno", t_lim=random.randint(5, 24)),
+    OrderVar(id=6, rute_node=rutas[5].rute_nodes[2], cant=6000, tipo_combustible="gasolina", t_lim=random.randint(5, 24)),
+    OrderVar(id=7, rute_node=rutas[6].rute_nodes[1], cant=11000, tipo_combustible="gasolina", t_lim=random.randint(5, 24)),
+    OrderVar(id=8, rute_node=rutas[7].rute_nodes[0], cant=15000, tipo_combustible="diesel", t_lim=random.randint(5, 24)),
+    OrderVar(id=9, rute_node=rutas[8].rute_nodes[2], cant=25000, tipo_combustible="gasolina", t_lim=random.randint(5, 24)),
+    OrderVar(id=10, rute_node=rutas[9].rute_nodes[1], cant=9000, tipo_combustible="gasolina", t_lim=random.randint(5, 24)),
+    OrderVar(id=11, rute_node=rutas[0].rute_nodes[0], cant=10000, tipo_combustible="diesel", t_lim=random.randint(5, 24)),
+    OrderVar(id=12, rute_node=rutas[1].rute_nodes[2], cant=9000, tipo_combustible="gas", t_lim=random.randint(5, 24)),
+    OrderVar(id=13, rute_node=rutas[2].rute_nodes[1], cant=21000, tipo_combustible="gas", t_lim=random.randint(5, 24)),
+    OrderVar(id=14, rute_node=rutas[3].rute_nodes[0], cant=6000, tipo_combustible="hidrogeno", t_lim=random.randint(5, 24)),
+    OrderVar(id=15, rute_node=rutas[4].rute_nodes[2], cant=24000, tipo_combustible="gasolina", t_lim=random.randint(5, 24)),
+    OrderVar(id=16, rute_node=rutas[5].rute_nodes[1], cant=5000, tipo_combustible="diesel", t_lim=random.randint(5, 24)),
+    OrderVar(id=17, rute_node=rutas[6].rute_nodes[0], cant=20000, tipo_combustible="gas", t_lim=random.randint(5, 24)),
+    OrderVar(id=18, rute_node=rutas[7].rute_nodes[2], cant=11000, tipo_combustible="gasolina", t_lim=random.randint(5, 24)),
+    OrderVar(id=19, rute_node=rutas[8].rute_nodes[1], cant=20000, tipo_combustible="diesel", t_lim=random.randint(5, 24)),
+    OrderVar(id=20, rute_node=rutas[9].rute_nodes[0], cant=9000, tipo_combustible="hidrogeno", t_lim=random.randint(5, 24))
 ]
