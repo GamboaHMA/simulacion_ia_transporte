@@ -8,12 +8,12 @@ class Node:
 	def __str__(self) -> str:
 		adyacents_str = ""
 		for adyacent in self.adyacents:
-			adyacents_str += adyacent
+			adyacents_str += str(adyacent)
 			adyacents_str += " "
 		return f"ID: {self.id} Adyacents: {adyacents_str}"
 
 	def __repr__(self) -> str:
-		return self.id
+		return str(self.id)
 
 	def add_adyacent(self, distance, node:"Node"):
 		if node.map.id != self.map.id:
@@ -26,7 +26,7 @@ class Node:
 		self.adyacents_distances[node] = distance
 
 class Map:
-	def __init__(self, id, nodes:Node, edges:dict[tuple[int,int], float]) -> None:
+	def __init__(self, id, nodes:list["Node"], edges:dict[tuple[int,int], float]) -> None:
 		self.id = id
 		self.nodes:list[Node] = nodes
 		self.edges:dict[tuple[int,int], float] = edges
