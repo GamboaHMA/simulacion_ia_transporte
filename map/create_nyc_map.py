@@ -5,7 +5,10 @@ y lo adapta a las clases Node y Map definidas en mapa_test.py
 
 import osmnx as ox
 import networkx as nx
-from ..mapa_test import Node, Map
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from mapa_test import Node, Map
 
 try:
     import matplotlib.pyplot as plt
@@ -67,6 +70,20 @@ def create_nyc_map(location='Manhattan, New York City, New York, USA',
             created_nodes[u].add_adyacent(distance, created_nodes[v])
         except Exception as e:
             print(f"Error al añadir adyacencia de {u} a {v}: {e}")
+            # printear la arista
+            # print(f"Arista: {u} -> {v}, distancia: {distance}")
+            # #comprobar si el nodo v existe en created_nodes
+            # if v not in created_nodes:
+            #     print(f"El nodo {v} no existe en created_nodes, creando nuevo nodo.")
+            #     new_node = Node(id=v, map=nyc_map)
+            #     created_nodes[v] = new_node
+            #     nyc_map.nodes.append(new_node)
+            # #comprobar si el nodo u existe en created_nodes
+            # if u not in created_nodes:
+            #     print(f"El nodo {u} no existe en created_nodes, creando nuevo nodo.")
+            #     new_node = Node(id=u, map=nyc_map)
+            #     created_nodes[u] = new_node
+            #     nyc_map.nodes.append(new_node)
         
         # No agregar la arista en sentido contrario, aunque el grafo sea dirigido
         # Actualizar el diccionario de aristas en el mapa

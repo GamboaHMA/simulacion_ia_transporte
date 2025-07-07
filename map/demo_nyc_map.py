@@ -2,8 +2,10 @@
 Script para demostrar el uso del mapa de New York creado con OSMNX
 """
 
-from map.create_nyc_map import create_nyc_map, load_map
+import sys
 import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from map.create_nyc_map import create_nyc_map, load_map
 
 def find_shortest_path(map_obj, start_node_idx, end_node_idx):
     """
