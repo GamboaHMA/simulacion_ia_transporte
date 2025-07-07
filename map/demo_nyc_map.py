@@ -82,7 +82,7 @@ def main():
         print("Creando nuevo mapa de New York (puede tardar varios minutos)...")
         nyc_map = create_nyc_map(
             # Para un mapa más pequeño y rápido, podemos usar un área más específica
-            location='Greenwich Village, Manhattan, New York City, USA',
+            location='Manhattan, New York City, New York, USA',
             network_type='drive',
             save_fig=True,
             save_map=True
